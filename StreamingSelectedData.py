@@ -10,14 +10,15 @@ consumer_secret = 'L79cBaSIrBAV16iJcslbTuttZMYmJvZHaq24LkBKJhKS1e7yl6'
 access_token = '738404396321538049-lJ9WtMNL66vsmacMOHJQ8uNdrRvZaFV'
 access_token_secret = 'cH8kBtLIEdG52E1NM8EVZTeLfLUysRuB5XPmN7XMn0bQt'
 
-auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
-auth.set_access_token(access_token, access_token_secret)
-
 
 class MyListener(StreamListener):
 
     def on_data(self, raw_data):
         try:
+            '''
+            This function gets the streaming data about the filtering objects.
+            This function can be modified to insert data on preferred database.
+            '''
             data = json.loads(raw_data)
             tweet = data["text"]
             username = data["user"]["screen_name"]
@@ -27,12 +28,18 @@ class MyListener(StreamListener):
             print(line)
             return True
         except:
-            print('exeption occured\n\n')
+            print('exception occurred\n\n')       # debug to test if on_data() working or not
             return True
 
     def on_error(self, status_code):
         return True
 
 
-twitter_stream = Stream(auth, MyListener())
-twitter_stream.filter(track=['france'])
+def main():
+    auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
+    auth.set_access_token(access_token, access_token_secret)
+    twitter_stream = Stream(auth, MyListener())
+    twitter_stream.filter(track=['france'])     # filter can be modified to get necessary data
+
+if __name__ == '__main__':
+    main()
