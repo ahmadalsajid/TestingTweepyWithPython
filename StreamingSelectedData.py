@@ -21,8 +21,8 @@ class MyListener(StreamListener):
             data = json.loads(raw_data)
             tweet = data["text"]
             username = data["user"]["screen_name"]
-            line = username+' tweets: '+tweet+'\n'
-            with open('TestData.txt', 'a', newline='', encoding='utf-8') as f:
+            line = username+' tweets:: '+tweet+'\n'
+            with open('TestData.txt', 'a', encoding='utf-8') as f:
                 f.write(line)
             print(line)
             return True
