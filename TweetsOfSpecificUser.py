@@ -1,20 +1,15 @@
 import tweepy
 import json
 import csv
-
-# Consumer keys and access tokens, used for OAuth
-consumer_key = 'cPWTw5c40SX6Iu9XeJuW4NIoI'
-consumer_secret = 'L79cBaSIrBAV16iJcslbTuttZMYmJvZHaq24LkBKJhKS1e7yl6'
-access_token = '738404396321538049-lJ9WtMNL66vsmacMOHJQ8uNdrRvZaFV'
-access_token_secret = 'cH8kBtLIEdG52E1NM8EVZTeLfLUysRuB5XPmN7XMn0bQt'
-
+from Key import *
 
 def get_all_tweets_of(screen_name):
     auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
     auth.set_access_token(access_token, access_token_secret)
     api = tweepy.API(auth)
     all_tweets = []
-    new_tweets = api.user_timeline(screen_name=screen_name, count=200)
+    new_tweets = api.user_timeline(screen_name=screen_name, count=1)
+
     all_tweets.extend(new_tweets)
     oldest = all_tweets[-1].id-1
     i = 1
